@@ -61,7 +61,7 @@ def base_qual_poor(qual, cigar, pos):
 def main():
     import sys
     if len(sys.argv) <= 3:
-        print "Usage %s <filename prefix> <pos> <alt allele> " % (sys.argv[0])
+        print "Usage %s <filename prefix> <pos> <alt allele> <genotype>" % (sys.argv[0])
         exit()
     filename = sys.argv[1]
     with open(filename+".fa") as f:
@@ -71,6 +71,7 @@ def main():
 
     call_pos = int(sys.argv[2])
     alt_allele = sys.argv[3]
+    genotype = sys.argv[4]
 
     from PIL import Image
     img = Image.new("RGB",(HEIGHT, WIDTH), "black")
@@ -152,8 +153,10 @@ def main():
         oldidx = int(key)
         for j in range(WIDTH): pix[newidx,j] = pixels[oldidx, j]
         newidx = newidx+1
-    out.save("img/"+filename+".bmp");
-
+    if genotype == "het":
+        out.save("img/het/"+filename+".jpg");
+    if genotype == "hom-alt":
+        out.save("img/hom-alt/"+filename+".jpg");
 
 if __name__ == "__main__":
     main()

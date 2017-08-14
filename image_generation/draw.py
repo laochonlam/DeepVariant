@@ -152,7 +152,7 @@ def main():
         oldidx = int(key)
         for j in range(WIDTH): pix[newidx,j] = pixels[oldidx, j]
         newidx = newidx+1
-    out.save(filename+".bmp");
+    out.save("img/"+filename+".bmp");
 
 
 if __name__ == "__main__":

@@ -29,9 +29,9 @@ def main():
                         genotype = "het"
 
 
-                    bam = "../data/lane1.sorted.bam"
+                    bam = "../data/elsa.bam"
                     fa = "../data/ucsc.hg19.fasta"
-                    command = "../image_generation/gen_image.sh %s %s %s %s %s" % (chrom, pos, alt, bam, fa)
+                    command = "../image_generation/gen_image.sh %s %s %s %s %s %s" % (chrom, pos, alt, bam, fa, genotype)
                     # print command
                     subprocess.call(shlex.split(command))
 if __name__ == "__main__":

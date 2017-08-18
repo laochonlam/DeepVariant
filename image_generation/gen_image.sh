@@ -1,5 +1,5 @@
 #!/bin/bash
-if [[ $# -lt 5 ]]; then
+if [[ $# -lt 6 ]]; then
     echo "Usage: $0 <chr> <pos> <alt allele> <bam> <ref> <genotype>"
     exit 1
 fi

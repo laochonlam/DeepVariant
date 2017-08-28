@@ -29,6 +29,12 @@ def main():
     timer = 0
     alt_allele = sys.argv[3]
     call_pos = int(sys.argv[2])
+
+    count_A = [0]*1000
+    count_G = [0]*1000
+    count_C = [0]*1000
+    count_T = [0]*1000
+
     for sam_line in sam:
         line = sam_line.split("\t")
         pos = int(line[3])
@@ -38,20 +44,33 @@ def main():
         flag = int(line[1])
         cigar = expand_cigar(line[5])
 
-        ref_pos = pos - call_pos
+
+        ref_pos = pos - call_pos + 200
         read_pos = 0
         timer = timer + 1
         print "SAM!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1"
         for cigar_index in range(len(cigar)):
             this_cigar = cigar[cigar_index]
-            print "INDEX NUMBER : %d" % cigar_index
+            # print "INDEX NUMBER : %d" % cigar_index
             # print "CIGAR INDEX : " + cigar[cigar_index]
             if this_cigar == 'M':
                 # print "COMPARING %s and %s" % (seq[read_pos], ref[ref_pos]) 
                 if seq[read_pos] == ref[ref_pos].upper():
-                    print "GOOD"
+                    continue
                 else:
-                    print "WTF??????"
+                    # print "GG"
+                    if seq[read_pos] == "A":
+                        count_A[ref_pos] = count_A[ref_pos] + 1
+                        # print ref_pos
+                    if seq[read_pos] == "C":
+                        count_C[ref_pos] = count_C[ref_pos] + 1
+                        # print ref_pos
+                    if seq[read_pos] == "G":
+                        count_G[ref_pos] = count_G[ref_pos] + 1
+                        # print ref_pos
+                    if seq[read_pos] == "T":
+                        count_T[ref_pos] = count_T[ref_pos] + 1
+                        # print ref_pos
                 read_pos = read_pos + 1
                 ref_pos = ref_pos + 1
                 continue
@@ -66,9 +85,27 @@ def main():
             else:
                 continue
 
-        # if timer == 1:
-        return 0
+        # if timer == 50:
 
+            # return 0
+
+    print "A"
+    for i in range(0,1000):
+        if count_A[i] != 0:
+            print i
+    print "G"
+    for i in range(0,1000):
+        if count_G[i] != 0:
+            print i
+    print "C"
+    for i in range(0,1000):
+        if count_C[i] != 0:
+            print i
+    print "T"
+    for i in range(0,1000):
+        if count_T[i] != 0:
+            print i
+                    
 
 if __name__ == "__main__":
     main()

@@ -1,6 +1,5 @@
 import sys
 
-
 def is_candidate(counts, allele):
     allele_count = counts[allele]
 
@@ -18,23 +17,26 @@ def expand_cigar(cigar):
     return ret
 
 def main():
-    if len(sys.argv) <= 2:
-        print "Usage %s <filename prefix> <pos> <alt allele>" % (sys.argv[0])
+    if len(sys.argv) <= 3:
+        print "Usage %s <chr> <filename prefix> <pos> <alt allele>" % (sys.argv[0])
         exit()
-    filename = sys.argv[1]
+    filename = sys.argv[2]
     with open(filename+".fa") as f:
         ref = f.read().translate(None,"\n")
     with open(filename+".sam") as f:
         sam = f.read().splitlines()
     timer = 0
-    alt_allele = sys.argv[3]
-    call_pos = int(sys.argv[2])
+    alt_allele = sys.argv[4]
+    call_pos = int(sys.argv[3])
+    chromosome = sys.argv[1]
 
-    count_A = [0]*20000
-    count_G = [0]*20000
-    count_C = [0]*20000
-    count_T = [0]*20000
-    total_counts = [0]*20000
+    read_range = 1000500
+
+    count_A = [0]*read_range
+    count_G = [0]*read_range
+    count_C = [0]*read_range
+    count_T = [0]*read_range
+    total_counts = [0]*read_range
     min_count = 2
     candidate_count = 0
 
@@ -46,7 +48,6 @@ def main():
         qual = line[10]
         flag = int(line[1])
         cigar = expand_cigar(line[5])
-
 
         ref_pos = pos - call_pos + 200
         read_pos = 0
@@ -105,38 +106,27 @@ def main():
         # print "T"
         # if count_T[i] != 0:
         #     print "%d %d" % (i, count_T[i])
-    for i in range(0,1000):
+    for i in range(0,read_range):
         total_counts[i] = count_A[i] + count_C[i] + count_G[i] + count_T[i]
         if total_counts != 0:
             if count_A[i] >= min_count:
                 if count_A[i] / total_counts[i] >= 0.25:
-                    # print "A %d" % i
+                    print "A %d %s" % (i + call_pos - 200, chromosome)
                     candidate_count = candidate_count + 1
             if count_G[i] >= min_count:
                 if count_G[i] / total_counts[i] >= 0.25:
-                    # print "G %d" % i
+                    print "G %d %s" % (i + call_pos - 200, chromosome)
                     candidate_count = candidate_count + 1
             if count_C[i] >= min_count:
                 if count_C[i] / total_counts[i] >= 0.25:
-                    # print "C %d" % i
+                    print "C %d %s" % (i + call_pos - 200, chromosome)
                     candidate_count = candidate_count + 1
             if count_T[i] >= min_count:
                 if count_T[i] / total_counts[i] >= 0.25:
-                    # print "T %d" % i
+                    print "T %d %s" % (i + call_pos - 200, chromosome)
                     candidate_count = candidate_count + 1
 
-    print candidate_count
-        
-                
-                
-                
-                
-                # print total_counts[i]
-            # return 0
-
-
-        
-                    
+    # print candidate_count
 
 if __name__ == "__main__":
     main()

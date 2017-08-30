@@ -37,7 +37,7 @@ def main():
     count_C = [0]*read_range
     count_T = [0]*read_range
     total_counts = [0]*read_range
-    min_count = 2
+    min_count = 1
     candidate_count = 0
 
     for sam_line in sam:
@@ -60,26 +60,33 @@ def main():
             # print "INDEX NUMBER : %d" % cigar_index
             # print "CIGAR INDEX : " + cigar[cigar_index]
             if this_cigar == 'M':
-                # print "COMPARING %s and %s" % (seq[read_pos], ref[ref_pos]) 
+                # if timer == 711:
+                    # print "COMPARING %s and %s" % (seq[read_pos], ref[ref_pos]) 
+                    # print "read_pos : %s and ref_pos : %s" % (read_pos, ref_pos)
                 if seq[read_pos] == ref[ref_pos].upper():
-                    # print "right"
-                    continue
+                    read_pos = read_pos + 1
+                    ref_pos = ref_pos + 1
+                    continue    
                 else:
                     # print "GG"
                     if seq[read_pos] == "A":
                         count_A[ref_pos] = count_A[ref_pos] + 1
                         # print ref_pos
+                        # print "A %d %s" % (ref_pos + call_pos - 200, chromosome)
                     if seq[read_pos] == "C":
                         count_C[ref_pos] = count_C[ref_pos] + 1
                         # print ref_pos
+                        # print "C %d %s" % (ref_pos + call_pos - 200, chromosome)
                     if seq[read_pos] == "G":
                         count_G[ref_pos] = count_G[ref_pos] + 1
                         # print ref_pos
+                        # print "G %d %s" % (ref_pos + call_pos - 200, chromosome)
                     if seq[read_pos] == "T":
                         count_T[ref_pos] = count_T[ref_pos] + 1
                         # print ref_pos
-                read_pos = read_pos + 1
-                ref_pos = ref_pos + 1
+                        # print "T %d %s" % (ref_pos + call_pos - 200, chromosome)
+                    read_pos = read_pos + 1
+                    ref_pos = ref_pos + 1
                 continue
             elif this_cigar == 'I' or this_cigar == 'S':
                 read_pos = read_pos + 1
@@ -110,23 +117,23 @@ def main():
         total_counts[i] = count_A[i] + count_C[i] + count_G[i] + count_T[i]
         if total_counts != 0:
             if count_A[i] >= min_count:
-                if count_A[i] / total_counts[i] >= 0.25:
+                # if count_A[i] / total_counts[i] >= 0.25:
                     print "A %d %s" % (i + call_pos - 200, chromosome)
                     candidate_count = candidate_count + 1
             if count_G[i] >= min_count:
-                if count_G[i] / total_counts[i] >= 0.25:
+                # if count_G[i] / total_counts[i] >= 0.25:
                     print "G %d %s" % (i + call_pos - 200, chromosome)
                     candidate_count = candidate_count + 1
             if count_C[i] >= min_count:
-                if count_C[i] / total_counts[i] >= 0.25:
+                # if count_C[i] / total_counts[i] >= 0.25:
                     print "C %d %s" % (i + call_pos - 200, chromosome)
                     candidate_count = candidate_count + 1
             if count_T[i] >= min_count:
-                if count_T[i] / total_counts[i] >= 0.25:
+                # if count_T[i] / total_counts[i] >= 0.25:
                     print "T %d %s" % (i + call_pos - 200, chromosome)
                     candidate_count = candidate_count + 1
 
-    # print candidate_count
+    # # print candidate_count
 
 if __name__ == "__main__":
     main()

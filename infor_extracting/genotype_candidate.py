@@ -69,7 +69,7 @@ def main():
         timer = 0
         for SNP_line in SNPS:
             timer = timer + 1
-            print SNP_line
+            # print SNP_line
             line_SNP = SNP_line.split("\t")
 
             ref = line_SNP[3]

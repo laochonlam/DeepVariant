@@ -4,10 +4,11 @@ import shlex
 
 def main():
     if len(sys.argv) < 2:
-        print "Usage %s <vcf> <candidate_variant>" % (sys.argv[0])
+        print "Usage %s <vcf> <candidate_variant> <range>" % (sys.argv[0])
         exit()
     vcf_filename = sys.argv[1]
     candidate_filename = sys.argv[2]
+    length = sys.argv[3]
 
     variant_count = 0
     ref_count = 0
@@ -55,7 +56,7 @@ def main():
     for vcf_line in vcf:
         line_vcf = vcf_line.split("\t")
         if line_vcf[0][0] != '#':
-            if (int(line_vcf[1]) <= 2000000 + 200) & (int(line_vcf[1]) >= 1000000 - 200):
+            if (int(line_vcf[1]) <= length + 200) & (int(line_vcf[1]) >= length - 200):
                 if (len(line_vcf[3]) == 1) & (len(line_vcf[4]) == 1):
                     if int(line_vcf[0]) == 1:
                         SNPS.append(vcf_line)

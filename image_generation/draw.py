@@ -153,10 +153,9 @@ def main():
         oldidx = int(key)
         for j in range(WIDTH): pix[newidx,j] = pixels[oldidx, j]
         newidx = newidx+1
-    if genotype == "het":
-        out.save("img/het/"+filename+".jpg");
-    if genotype == "hom-alt":
-        out.save("img/hom-alt/"+filename+".jpg");
+
+        out.save("img/" + genotype + "/" + filename+".jpg");
+
 
 if __name__ == "__main__":
     main()

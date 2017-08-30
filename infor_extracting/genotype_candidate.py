@@ -4,11 +4,11 @@ import shlex
 
 def main():
     if len(sys.argv) < 2:
-        print "Usage %s <vcf> <candidate_variant> <range>" % (sys.argv[0])
+        print "Usage %s <vcf> <candidate_variant> <start position>" % (sys.argv[0])
         exit()
     vcf_filename = sys.argv[1]
     candidate_filename = sys.argv[2]
-    length = sys.argv[3]
+    position = int(sys.argv[3])
 
     variant_count = 0
     ref_count = 0
@@ -56,11 +56,14 @@ def main():
     for vcf_line in vcf:
         line_vcf = vcf_line.split("\t")
         if line_vcf[0][0] != '#':
-            if (int(line_vcf[1]) <= length + 200) & (int(line_vcf[1]) >= length - 200):
+            if (int(line_vcf[1]) <= position + 1000000 + 200) & (int(line_vcf[1]) >= position - 200):
                 if (len(line_vcf[3]) == 1) & (len(line_vcf[4]) == 1):
-                    if int(line_vcf[0]) == 1:
+                    # TODO: chr variable
+                    if line_vcf[0] == "1":
                         SNPS.append(vcf_line)
-                        
+
+    # for SNP_line in SNPS:                 
+    #     print SNP_line
 
     print "[Bounding Completed]"
 
@@ -74,7 +77,7 @@ def main():
             line_SNP = SNP_line.split("\t")
 
             ref = line_SNP[3]
-            alt = line_SNP[4]
+            alt = line[0]
             pos = line[1]
             chrom = "chr" + line_SNP[0]
 
@@ -108,6 +111,7 @@ def main():
                     ref_count = ref_count + 1
                     genotype = "ref"
                     # print "ref"
+                    # print alt
                     command = "../image_generation/gen_image.sh %s %s %s %s %s %s" % (chrom, pos, alt, bam, fa, genotype)
                     subprocess.call(shlex.split(command))
                     break

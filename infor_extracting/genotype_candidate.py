@@ -73,7 +73,7 @@ def main():
 
                 ref = line_SNP[3]
                 alt = line_SNP[4]
-                pos = line_SNP[1]
+                pos = line[1]
                 chrom = "chr" + line_SNP[0]
 
                 if (line_SNP[0][0] != '#') & (line_SNP[0] != "0"):

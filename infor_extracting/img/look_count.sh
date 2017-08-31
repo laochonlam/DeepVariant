@@ -1,3 +1,3 @@
-ls ref/tmp/ | wc -l
-ls het/tmp/ | wc -l
-ls hom-alt/tmp/ | wc -l
+ls ref/ | wc -l
+ls het/ | wc -l
+ls hom-alt/ | wc -l

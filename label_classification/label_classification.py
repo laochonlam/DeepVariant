@@ -12,8 +12,8 @@ def main():
 
     variant_count = 0
     ref_count = 0
-    bam = "../data/elsa.bam"
-    fa = "../data/ucsc.hg19.fasta"
+    bam = "data/elsa.bam"
+    fa = "data/ucsc.hg19.fasta"
 
 
     with open(vcf_filename) as f:
@@ -99,7 +99,7 @@ def main():
                     else:
                         genotype = "het"
                         # print "het"
-                    command = "../image_generation/gen_image.sh %s %s %s %s %s %s" % (chrom, pos, alt, bam, fa, genotype)
+                    command = "image_generation/gen_image.sh %s %s %s %s %s %s" % (chrom, pos, alt, bam, fa, genotype)
                     subprocess.call(shlex.split(command))
 
                     variant_count = variant_count + 1
@@ -112,7 +112,7 @@ def main():
                     genotype = "ref"
                     # print "ref"
                     # print alt
-                    command = "../image_generation/gen_image.sh %s %s %s %s %s %s" % (chrom, pos, alt, bam, fa, genotype)
+                    command = "image_generation/gen_image.sh %s %s %s %s %s %s" % (chrom, pos, alt, bam, fa, genotype)
                     subprocess.call(shlex.split(command))
                     break
 

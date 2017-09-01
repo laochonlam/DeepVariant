@@ -9,3 +9,6 @@ name=$name"_$1_$2"
 ~/samtools-1.5/samtools view $4 $1:$2-$(($2+1000000)) > $name.sam
 ~/samtools-1.5/samtools faidx $5 $1:$(($2-200))-$(($2+1000200)) | tail -n +2 > $name.fa
 python ~/git/deepvariant/find_candidate/find.py $1 $name $2 $3
+rm $name.sam
+rm $name.fa
+echo "$name Find Candidate Completed" >> log

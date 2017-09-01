@@ -6,7 +6,9 @@ fi
 name=`basename -s .bam $4`
 name=$name"_chr$1_$2_$3"
 
-~/samtools-1.5/samtools view $4 $1:$2-$2 > tmp/$name.sam
-~/samtools-1.5/samtools faidx $5 $1:$(($2-110))-$(($2+110)) | tail -n +2 > tmp/$name.fa
+~/samtools-1.5/samtools view $4 $1:$2-$2 > $name.sam
+~/samtools-1.5/samtools faidx $5 $1:$(($2-110))-$(($2+110)) | tail -n +2 > $name.fa
 python ~/git/deepvariant/image_generation/draw.py $name $2 $3 $6
+rm $name.sam
+rm $name.fa
 

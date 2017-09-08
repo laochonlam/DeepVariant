@@ -4,12 +4,13 @@ import subprocess
 import shlex
 
 def main():
-    if len(sys.argv) < 2:
-        print "Usage %s <vcf> <candidate_variant> <start position>" % (sys.argv[0])
+    if len(sys.argv) < 3:
+        print "Usage %s <vcf> <candidate_variant> <start position> <chr>" % (sys.argv[0])
         exit()
     vcf_filename = sys.argv[1]
     candidate_filename = sys.argv[2]
     position = int(sys.argv[3])
+    chrom = sys.argv[4][3:]
 
     variant_count = 0
     ref_count = 0
@@ -59,12 +60,14 @@ def main():
         if line_vcf[0][0] != '#':
             if (int(line_vcf[1]) <= position + 1000000 + 200) & (int(line_vcf[1]) >= position - 200):
                 if (len(line_vcf[3]) == 1) & (len(line_vcf[4]) == 1):
+#                    print line_vcf[0]
+#                    print chrom
                     # TODO: chr variable
-                    if line_vcf[0] == "1":
+                    if line_vcf[0] == chrom:
                         SNPS.append(vcf_line)
-
-    # for SNP_line in SNPS:                 
-    #     print SNP_line
+                        # print vcf_line
+    for SNP_line in SNPS:                 
+        print SNP_line
 
     print "[Bounding Completed]"
 

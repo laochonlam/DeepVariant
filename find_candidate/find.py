@@ -17,8 +17,8 @@ def expand_cigar(cigar):
     return ret
 
 def main():
-    if len(sys.argv) <= 3:
-        print "Usage %s <chr> <filename prefix> <pos> <alt allele>" % (sys.argv[0])
+    if len(sys.argv) <= 2:
+        print "Usage %s <chr> <filename prefix> <pos>" % (sys.argv[0])
         exit()
     filename = sys.argv[2]
     with open(filename+".fa") as f:
@@ -26,7 +26,7 @@ def main():
     with open(filename+".sam") as f:
         sam = f.read().splitlines()
     timer = 0
-    alt_allele = sys.argv[4]
+   
     call_pos = int(sys.argv[3])
     chromosome = sys.argv[1]
 
@@ -37,8 +37,10 @@ def main():
     count_C = [0]*read_range
     count_T = [0]*read_range
     total_counts = [0]*read_range
+
     min_count = 2
     min_fraction = 0
+
     candidate_count = 0
 
     for sam_line in sam:

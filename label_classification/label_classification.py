@@ -1,4 +1,5 @@
 import sys
+import random
 import subprocess
 import shlex
 
@@ -110,10 +111,11 @@ def main():
                 if int(line_SNP[1]) > int(line[1]):
                     ref_count = ref_count + 1
                     genotype = "ref"
-                    # print "ref"
+		    # 3/100 to call
+                    if (random.randint(0,100) < 3):
                     # print alt
-                    command = "image_generation/gen_image.sh %s %s %s %s %s %s" % (chrom, pos, alt, bam, fa, genotype)
-                    subprocess.call(shlex.split(command))
+                        command = "image_generation/gen_image.sh %s %s %s %s %s %s" % (chrom, pos, alt, bam, fa, genotype)
+                        subprocess.call(shlex.split(command))
                     break
 
 

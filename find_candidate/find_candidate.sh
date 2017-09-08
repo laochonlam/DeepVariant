@@ -11,4 +11,3 @@ name=$name"_$1_$2"
 python ~/git/deepvariant/find_candidate/find.py $1 $name $2 $3
 rm $name.sam
 rm $name.fa
-echo "$name Find Candidate Completed" >> log

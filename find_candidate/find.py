@@ -37,7 +37,8 @@ def main():
     count_C = [0]*read_range
     count_T = [0]*read_range
     total_counts = [0]*read_range
-    min_count = 1
+    min_count = 2
+    min_fraction = 0
     candidate_count = 0
 
     for sam_line in sam:
@@ -115,25 +116,28 @@ def main():
         #     print "%d %d" % (i, count_T[i])
     for i in range(0,read_range):
         total_counts[i] = count_A[i] + count_C[i] + count_G[i] + count_T[i]
-        if total_counts != 0:
+        if total_counts[i] != 0:
             if count_A[i] >= min_count:
-                # if count_A[i] / total_counts[i] >= 0.25:
+                if float(count_A[i]) / float(total_counts[i]) >= min_fraction:
                     print "A %d %s" % (i + call_pos - 200, chromosome)
+                    print count_A[i]
+                    print total_counts[i]
+                    print float(count_A[i]) / float(total_counts[i])
                     candidate_count = candidate_count + 1
             if count_G[i] >= min_count:
-                # if count_G[i] / total_counts[i] >= 0.25:
+                 if float(count_G[i]) / float(total_counts[i]) >= min_fraction:
                     print "G %d %s" % (i + call_pos - 200, chromosome)
                     candidate_count = candidate_count + 1
             if count_C[i] >= min_count:
-                # if count_C[i] / total_counts[i] >= 0.25:
+                 if float(count_C[i]) / float(total_counts[i]) >= min_fraction:
                     print "C %d %s" % (i + call_pos - 200, chromosome)
                     candidate_count = candidate_count + 1
             if count_T[i] >= min_count:
-                # if count_T[i] / total_counts[i] >= 0.25:
+                 if float(count_T[i]) / float(total_counts[i]) >= min_fraction:
                     print "T %d %s" % (i + call_pos - 200, chromosome)
                     candidate_count = candidate_count + 1
 
-    # # print candidate_count
+    print candidate_count
 
 if __name__ == "__main__":
     main()

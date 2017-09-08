@@ -7,7 +7,7 @@ mkdir -p img/het
 mkdir -p img/hom-alt
 mkdir -p img/ref
 echo "[Start]" > log
-for (( i=1010000; i<=249000000; i=i+1000000 ))
+for (( i=12010000; i<=249000000; i=i+1000000 ))
 do
     # Usage find_candidate <chr> <pos> A <bam> <fasta>
     find_candidate/find_candidate.sh chr1 ${i} A data/elsa.bam data/ucsc.hg19.fasta > candidate.txt

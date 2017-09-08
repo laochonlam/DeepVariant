@@ -120,9 +120,9 @@ def main():
             if count_A[i] >= min_count:
                 if float(count_A[i]) / float(total_counts[i]) >= min_fraction:
                     print "A %d %s" % (i + call_pos - 200, chromosome)
-                    print count_A[i]
-                    print total_counts[i]
-                    print float(count_A[i]) / float(total_counts[i])
+                    # print count_A[i]
+                    # print total_counts[i]
+                    # print float(count_A[i]) / float(total_counts[i])
                     candidate_count = candidate_count + 1
             if count_G[i] >= min_count:
                  if float(count_G[i]) / float(total_counts[i]) >= min_fraction:
@@ -137,7 +137,7 @@ def main():
                     print "T %d %s" % (i + call_pos - 200, chromosome)
                     candidate_count = candidate_count + 1
 
-    print candidate_count
+    # print candidate_count
 
 if __name__ == "__main__":
     main()

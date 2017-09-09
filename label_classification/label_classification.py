@@ -66,8 +66,8 @@ def main():
                     if line_vcf[0] == chrom:
                         SNPS.append(vcf_line)
                         # print vcf_line
-    for SNP_line in SNPS:                 
-        print SNP_line
+#    for SNP_line in SNPS:                 
+#        print SNP_line
 
     print "[Bounding Completed]"
 

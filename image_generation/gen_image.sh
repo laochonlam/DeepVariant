@@ -8,7 +8,7 @@ name=$name"_$1_$2_$3"
 echo "$name has been generated as a image [$6]" >> log_$1
 tools/samtools-1.5/samtools view $4 $1:$2-$2 > $name.sam
 tools/samtools-1.5/samtools faidx $5 $1:$(($2-110))-$(($2+110)) | tail -n +2 > $name.fa
-python ~/git/deepvariant/image_generation/draw.py $name $2 $3 $6
+python image_generation/draw.py $name $2 $3 $6
 rm $name.sam
 rm $name.fa
 

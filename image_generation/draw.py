@@ -12,14 +12,14 @@ def fill_reference_pixels(ref, pixels):
             blue = get_strand_color(True) # The reference is on the positive strand
             pixels[row, col] = make_pixel(red, green, blue, alpha)
 def get_base_color(base):
-        base_to_color = {'A': 250, 'G': 180, 'T': 100, 'C': 30}
-        return base_to_color.get(base, 0)
+    base_to_color = {'A': 250, 'G': 180, 'T': 100, 'C': 30}
+    return base_to_color.get(base, 0)
 def get_quality_color(quality):
-        return int(254.0 * (min(40, quality) / 40.0))
+    return int(254.0 * (min(40, quality) / 40.0))
 def get_strand_color(on_positive_strand):
-        return 70 if on_positive_strand else 240
+    return 70 if on_positive_strand else 240
 def make_pixel(red, green, blue, alpha):
-        return (255-int(alpha * red), 255-int(alpha * green), 255-int(alpha * blue))
+    return (255-int(alpha * red), 255-int(alpha * green), 255-int(alpha * blue))
 
 def in_canvas(x):
     return x>=0 and x<WIDTH
@@ -34,7 +34,6 @@ def expand_cigar(cigar):
             ret = ret + c * num
             num = 0
     return ret
-
 
 def base_qual_poor(qual, cigar, pos):
     cigar_idx = 0
@@ -56,7 +55,6 @@ def base_qual_poor(qual, cigar, pos):
             pass
         else:
             raise Exception
-            
 
 def main():
     import sys
@@ -153,9 +151,7 @@ def main():
         oldidx = int(key)
         for j in range(WIDTH): pix[newidx,j] = pixels[oldidx, j]
         newidx = newidx+1
-
         out.save("img/" + genotype + "/" + filename+".jpg");
-
 
 if __name__ == "__main__":
     main()

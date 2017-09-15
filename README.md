@@ -2,7 +2,7 @@
 
 
 ## Introduction
-Implementation of ***Finding candidate variants*** and ***Creating images around candidate variants*** sections in [Google Variant Caller Paper](http://www.biorxiv.org/content/early/2016/12/14/092890).
+Implementation of ***Finding candidate variants*** and ***Creating images around candidate variants*** sections (SNP only so far) in [Google Variant Caller Paper](http://www.biorxiv.org/content/early/2016/12/14/092890).
 
 Run ```run.sh``` to find candidate variants, then generate 3 types of images which are ***ref***, ***het*** and ***hom-alt*** for further CNN training network by given a specific range.
 
@@ -24,9 +24,9 @@ Run ```run.sh``` to find candidate variants, then generate 3 types of images whi
 
 ```find_candidate.sh``` - select the following 1000000 position to find candidate.
 
-```find.py``` - find candidate.
+```find.py``` - find candidate variants.
 
-``` draw.py``` - draw image with feature.
+```draw.py``` - draw images with feature.
 
 ```gen_image.py``` - preprocessing of image drawing.
 
